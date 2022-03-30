@@ -5,7 +5,8 @@
 #include <SFML/System.hpp>
 #include <SFML/System/Clock.hpp>
 
-class Input {
+class Input 
+{
     public:
     sf::Vector2i mousePosition;
 

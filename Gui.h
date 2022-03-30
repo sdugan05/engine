@@ -3,7 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 
-class Gui {
+class Gui 
+{
     public:
     Gui(sf::RenderWindow& window, sf::Clock& deltaClock);
     void init();
@@ -11,11 +12,14 @@ class Gui {
 
     void setMousePosition(sf::Vector2i mousePosition);
 
-    int ballSpeed;
+    sf::Vector2f ballSpeed;
+
+    float angle;
 
     private:
     sf::RenderWindow* window;
     sf::Clock* deltaClock;
 
     sf::Vector2i mousePosition;
+
 };

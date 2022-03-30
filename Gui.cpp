@@ -1,10 +1,11 @@
 #include "Gui.h"
+#include <math.h>
 
 Gui::Gui(sf::RenderWindow& window, sf::Clock& deltaClock)
 {
     this->window = &window;
     this->deltaClock = &deltaClock;
-    this->ballSpeed = 20;
+    this->ballSpeed = sf::Vector2f(100, 100);
 }
 
 void Gui::init()
@@ -12,20 +13,21 @@ void Gui::init()
     ImGui::SFML::Init(*window);
 }
 
-void Gui::draw() {
+void Gui::draw() 
+{
     ImGui::SFML::Update(*window, deltaClock->restart());
 
     ImGui::Begin("Debug");
 
-    ImGui::SetWindowPos(ImVec2(0, 320));
+    ImGui::SetWindowPos(ImVec2(0, 0));
 
-    ImGui::SetWindowSize(ImVec2(400, 80));
+    ImGui::SetWindowSize(ImVec2(350, 70));
 
     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
     ImGui::Text("Mouse Position: (%i, %i)", mousePosition.x, mousePosition.y);
 
-    ImGui::SliderInt("Ball Speed", &ballSpeed, -100, 100);
+    ImGui::Text("angle = %f -sin: %f", angle, -sin(angle));
 
     ImGui::End();
 }
