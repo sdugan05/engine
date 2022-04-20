@@ -13,6 +13,58 @@
 int WIDTH = 400;
 int HEIGHT = 500;
 
+class Brick 
+{
+public:
+    bool isDestroyed = false;
+
+    Brick(int x, int y, int width, int height)
+    {
+        this->x = x;
+        this->y = y;
+        this->width = width;
+        this->height = height;
+
+        this->isDestroyed = false;
+    }
+
+    int x;
+    int y;
+    int width;
+    int height;
+
+    bool isColliding(int x, int y)
+    {
+        if (x >= this->x && x <= this->x + this->width && y >= this->y && y <= this->y + this->height)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    sf::RectangleShape shape;
+
+    sf::RectangleShape getShape()
+    {
+        shape.setPosition(x, y);
+        shape.setSize(sf::Vector2f(width, height));
+        shape.setFillColor(sf::Color::Red);
+        shape.setOutlineColor(sf::Color::Black);
+        shape.setOutlineThickness(1);
+
+        return shape;
+    }
+
+    void draw(sf::RenderWindow& window)
+    {
+        if (!isDestroyed)
+        {
+            window.draw(getShape());
+        }
+    }
+
+};
+
 class Ball 
 {
 public:
@@ -24,14 +76,18 @@ public:
     void setSize(sf::Vector2f size);
     void setColor(sf::Color color);
     void setBounds(sf::Rect<float> bounds);
+
+    bool isColliding(Brick brick);
     sf::Vector2f getPosition();
     sf::Vector2f getVelocity();
     sf::Vector2f getSize();
     sf::Color getColor();
     sf::CircleShape getShape();
+
+    sf::Vector2f velocity;
 private:
     sf::Vector2f position;
-    sf::Vector2f velocity;
+    
     sf::Vector2f size;
     sf::Color color;
     sf::CircleShape shape;
@@ -43,6 +99,19 @@ Ball::Ball(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f size, sf::
     this->velocity = velocity;
     this->size = size;
     this->color = color;
+}
+
+bool Ball::isColliding(Brick brick)
+{
+    if (brick.getShape().getGlobalBounds().intersects(this->getShape().getGlobalBounds()))
+    {
+        return true;
+    } 
+    else 
+    {
+        return false;
+    }
+    
 }
 
 void Ball::update(float deltaTime) 
@@ -146,13 +215,23 @@ int main()
     float ballDirection = 0;
     sf::Color cursorColor(0, 0, 255, 255);
     
-    Ball ball(sf::Vector2f(100, 100), sf::Vector2f(50, 100), sf::Vector2f(10, 10), sf::Color(255, 0, 0));
+    Ball ball(sf::Vector2f(200, 400), sf::Vector2f(50, 100), sf::Vector2f(10, 10), sf::Color(255, 0, 0));
     ball.setVelocity(ballSpeed);
     bool collided = false;
 
     // Cursor
     sf::RectangleShape paddle(sf::Vector2f(75, 20));
     paddle.setPosition(sf::Vector2f(0, 250));
+
+    // Bricks
+    std::vector<Brick> bricks;
+    for (int i = 0; i < 7; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            bricks.push_back(Brick(i * 50 + i * 10, j * 25 + j * 10, 50, 25));
+        }
+    }
 
     // Window loop
     while (window.isOpen())
@@ -211,6 +290,23 @@ int main()
         }
         else { collided = false; }
 
+        // Ball collision with bricks
+
+        for (int i = 0; i < bricks.size(); i++) {
+            if (ball.isColliding(bricks[i]) && !bricks[i].isDestroyed) {
+                // if ball is on the left side of the brick then make the ball go left
+                sf::Vector2f oldfVelocity = ball.getVelocity();
+                sf::Vector2f newVelocity;
+
+                newVelocity.x = oldfVelocity.x;
+                newVelocity.y = -oldfVelocity.y;
+
+                ball.setVelocity(newVelocity);
+                bricks[i].isDestroyed = true;
+            }
+        }
+
+
         gui.ballSpeed = ball.getVelocity();
 
         // Game logic
@@ -231,6 +327,11 @@ int main()
         window.draw(paddle);
 
         ball.draw(window);
+
+        for (int i = 0; i < bricks.size(); i++)
+        {
+            bricks[i].draw(window);
+        }
 
         ImGui::SFML::Render(window);
 
