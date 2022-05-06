@@ -285,6 +285,7 @@ int main()
                 }
 
                 ball.setVelocity(newVelocity);
+                ball.setColor(cursorColor);
             }
             collided = true;
         }
