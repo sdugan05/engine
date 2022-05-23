@@ -10,187 +10,17 @@
 #include "Gui.h"
 #include "Input.h"
 
-int WIDTH = 400;
-int HEIGHT = 500;
+#include "Brick.h"
+#include "Ball.h"
 
-class Brick 
-{
-public:
-    bool isDestroyed = false;
-
-    Brick(int x, int y, int width, int height)
+void poputateBricks(std::vector<Brick>& bricks, int width, int height) {
+    for (int i = 0; i < width; i++)
     {
-        this->x = x;
-        this->y = y;
-        this->width = width;
-        this->height = height;
-
-        this->isDestroyed = false;
-    }
-
-    int x;
-    int y;
-    int width;
-    int height;
-
-    bool isColliding(int x, int y)
-    {
-        if (x >= this->x && x <= this->x + this->width && y >= this->y && y <= this->y + this->height)
+        for (int j = 0; j < height; j++)
         {
-            return true;
-        }
-        return false;
-    }
-
-    sf::RectangleShape shape;
-
-    sf::RectangleShape getShape()
-    {
-        shape.setPosition(x, y);
-        shape.setSize(sf::Vector2f(width, height));
-        shape.setFillColor(sf::Color::Red);
-        shape.setOutlineColor(sf::Color::Black);
-        shape.setOutlineThickness(1);
-
-        return shape;
-    }
-
-    void draw(sf::RenderWindow& window)
-    {
-        if (!isDestroyed)
-        {
-            window.draw(getShape());
+            bricks.push_back(Brick(i * 50 + i * 10, j * 25 + j * 10, 50, 25));
         }
     }
-
-};
-
-class Ball 
-{
-public:
-    Ball(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f size, sf::Color color);
-    void update(float deltaTime);
-    void draw(sf::RenderWindow& window);
-    void setPosition(sf::Vector2f position);
-    void setVelocity(sf::Vector2f velocity);
-    void setSize(sf::Vector2f size);
-    void setColor(sf::Color color);
-    void setBounds(sf::Rect<float> bounds);
-
-    bool isColliding(Brick brick);
-    sf::Vector2f getPosition();
-    sf::Vector2f getVelocity();
-    sf::Vector2f getSize();
-    sf::Color getColor();
-    sf::CircleShape getShape();
-
-    sf::Vector2f velocity;
-private:
-    sf::Vector2f position;
-    
-    sf::Vector2f size;
-    sf::Color color;
-    sf::CircleShape shape;
-};
-
-Ball::Ball(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f size, sf::Color color) 
-{
-    this->position = position;
-    this->velocity = velocity;
-    this->size = size;
-    this->color = color;
-}
-
-bool Ball::isColliding(Brick brick)
-{
-    if (brick.getShape().getGlobalBounds().intersects(this->getShape().getGlobalBounds()))
-    {
-        return true;
-    } 
-    else 
-    {
-        return false;
-    }
-    
-}
-
-void Ball::update(float deltaTime) 
-{
-    sf::Vector2f newPosition = position + (velocity * deltaTime);
-    if (newPosition.x < 0) {
-        // newPosition.x = 0;
-        velocity.x = -velocity.x;
-    }
-    else if (newPosition.x > WIDTH - (size.x * 2))
-    {
-        // newPosition.x = 1080 - size.x;
-        velocity.x = -velocity.x;
-    }
-    if (newPosition.y < 0) {
-        // newPosition.y = 0;
-        velocity.y = -velocity.y;
-    }
-    else if (newPosition.y > HEIGHT - (size.y * 2))
-    {
-        // newPosition.y = 720 - size.y;
-        velocity.y = -velocity.y;
-    }
-
-    newPosition = position + (velocity * deltaTime);
-    position = newPosition;
-}
-
-void Ball::draw(sf::RenderWindow& window) 
-{
-    shape = sf::CircleShape(size.x);
-    shape.setPosition(position);
-    shape.setFillColor(color);
-    window.draw(shape);
-}
-
-void Ball::setPosition(sf::Vector2f position) 
-{
-    this->position = position;
-}
-
-void Ball::setVelocity(sf::Vector2f velocity) 
-{
-    this->velocity = velocity;
-}
-
-void Ball::setSize(sf::Vector2f size) 
-{
-    this->size = size;
-}
-
-void Ball::setColor(sf::Color color) 
-{
-    this->color = color;
-}
-
-sf::Vector2f Ball::getPosition() 
-{
-    return position;
-}
-
-sf::Vector2f Ball::getVelocity() 
-{
-    return velocity;
-}
-
-sf::Vector2f Ball::getSize() 
-{
-    return size;
-}
-
-sf::Color Ball::getColor() 
-{
-    return color;
-}
-
-sf::CircleShape Ball::getShape() 
-{
-    return shape;
 }
 
 int main()
@@ -225,12 +55,11 @@ int main()
 
     // Bricks
     std::vector<Brick> bricks;
-    for (int i = 0; i < 7; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            bricks.push_back(Brick(i * 50 + i * 10, j * 25 + j * 10, 50, 25));
-        }
+    poputateBricks(bricks, 7, 4);
+
+    if (gui.repopulateBricks) {
+        poputateBricks(bricks, 7, 4);
+        gui.repopulateBricks = false;
     }
 
     // Window loop

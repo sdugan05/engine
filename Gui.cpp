@@ -27,7 +27,7 @@ void Gui::draw()
 
     ImGui::Text("Mouse Position: (%i, %i)", mousePosition.x, mousePosition.y);
 
-    ImGui::Text("angle = %f -sin: %f", angle, -sin(angle));
+    repopulateBricks = ImGui::Button("Repopulate Bricks", ImVec2(100, 20));
 
     ImGui::End();
 }
