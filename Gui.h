@@ -1,10 +1,9 @@
+#include "Engine.h"
+
 #include "imgui.h"
 #include "imgui-SFML.h"
 
 #include <SFML/Graphics.hpp>
-
-int WIDTH = 400;
-int HEIGHT = 500;
 
 class Gui 
 {

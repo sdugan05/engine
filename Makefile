@@ -1,6 +1,6 @@
 EXE = engine_main
 IMGUI_DIR = ../..
-SOURCES = main.cpp imgui-SFML.cpp Gui.cpp Input.cpp Brick.cpp
+SOURCES = Engine.cpp imgui-SFML.cpp Gui.cpp Input.cpp Brick.cpp Ball.cpp
 SOURCES += $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp
 OBJS = $(addsuffix .o, $(basename $(notdir $(SOURCES))))
 UNAME_S := $(shell uname -s)

@@ -1,0 +1,17 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/Saul/graphics/engine'
+c++ -I../.. -I../../backends -g -Wall -Wformat -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include -c -o Engine.o Engine.cpp
+c++ -I../.. -I../../backends -g -Wall -Wformat -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include -c -o imgui-SFML.o imgui-SFML.cpp
+c++ -I../.. -I../../backends -g -Wall -Wformat -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include -c -o Gui.o Gui.cpp
+c++ -I../.. -I../../backends -g -Wall -Wformat -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include -c -o Input.o Input.cpp
+c++ -I../.. -I../../backends -g -Wall -Wformat -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include -c -o Brick.o Brick.cpp
+c++ -I../.. -I../../backends -g -Wall -Wformat -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include -c -o Ball.o Ball.cpp
+c++ -I../.. -I../../backends -g -Wall -Wformat -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include -c -o imgui.o imgui.cpp
+c++ -I../.. -I../../backends -g -Wall -Wformat -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include -c -o imgui_demo.o imgui_demo.cpp
+c++ -I../.. -I../../backends -g -Wall -Wformat -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include -c -o imgui_draw.o imgui_draw.cpp
+c++ -I../.. -I../../backends -g -Wall -Wformat -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include -c -o imgui_tables.o imgui_tables.cpp
+c++ -I../.. -I../../backends -g -Wall -Wformat -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include -c -o imgui_widgets.o imgui_widgets.cpp
+c++ -o engine_main Engine.o imgui-SFML.o Gui.o Input.o Brick.o Ball.o imgui.o imgui_demo.o imgui_draw.o imgui_tables.o imgui_widgets.o -I../.. -I../../backends -g -Wall -Wformat -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include  -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -L/usr/local/lib -L/opt/local/lib -L/opt/homebrew/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+echo Build complete for "Mac OS X"
+make: Leaving directory `/Users/Saul/graphics/engine'
+ 

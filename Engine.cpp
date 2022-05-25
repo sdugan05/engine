@@ -47,20 +47,16 @@ int main()
     
     Ball ball(sf::Vector2f(200, 400), sf::Vector2f(50, 100), sf::Vector2f(10, 10), sf::Color(255, 0, 0));
     ball.setVelocity(ballSpeed);
-    bool collided = false;
+    bool paddleCollided = false;
+    bool brickCollided = false;
 
     // Cursor
     sf::RectangleShape paddle(sf::Vector2f(75, 20));
-    paddle.setPosition(sf::Vector2f(0, 250));
+    paddle.setPosition(sf::Vector2f(0, 450));
 
     // Bricks
     std::vector<Brick> bricks;
-    poputateBricks(bricks, 7, 4);
-
-    if (gui.repopulateBricks) {
-        poputateBricks(bricks, 7, 4);
-        gui.repopulateBricks = false;
-    }
+    poputateBricks(bricks, 7, 7);
 
     // Window loop
     while (window.isOpen())
@@ -88,9 +84,9 @@ int main()
         ball.update(deltaTime);
 
         // Ball collision with paddle
-        if (ball.getShape().getGlobalBounds().intersects(paddle.getGlobalBounds())) 
+        if (ball.getShape().getGlobalBounds().intersects(paddle.getGlobalBounds()))
         {
-            if (!collided) 
+            if (!paddleCollided) 
             {
                 float randomAngle = rand() % 60 + 30;
                 randomAngle = randomAngle * (M_PI / 180);
@@ -116,25 +112,31 @@ int main()
                 ball.setVelocity(newVelocity);
                 ball.setColor(cursorColor);
             }
-            collided = true;
+            paddleCollided = true;
         }
-        else { collided = false; }
+        else { paddleCollided = false; }
 
         // Ball collision with bricks
 
         for (int i = 0; i < bricks.size(); i++) {
             if (ball.isColliding(bricks[i]) && !bricks[i].isDestroyed) {
-                // if ball is on the left side of the brick then make the ball go left
-                sf::Vector2f oldfVelocity = ball.getVelocity();
-                sf::Vector2f newVelocity;
+                brickCollided = true;
 
-                newVelocity.x = oldfVelocity.x;
-                newVelocity.y = -oldfVelocity.y;
-
-                ball.setVelocity(newVelocity);
                 bricks[i].isDestroyed = true;
             }
         }
+
+        if (brickCollided) {
+            sf::Vector2f oldVelocity = ball.getVelocity();
+            sf::Vector2f newVelocity;
+
+            newVelocity.x = oldVelocity.x;
+            newVelocity.y = -oldVelocity.y;
+
+            ball.setVelocity(newVelocity);
+        }
+        
+        brickCollided = false;
 
 
         gui.ballSpeed = ball.getVelocity();
@@ -147,6 +149,12 @@ int main()
         cursorColor.b = (mousePosition.y % 255);
 
         paddle.setFillColor(cursorColor);
+
+        if (gui.repopulateBricks) 
+        {
+            poputateBricks(bricks, 7, 7);
+            gui.repopulateBricks = false;
+        }
 
         // Draw gui
         gui.draw();
