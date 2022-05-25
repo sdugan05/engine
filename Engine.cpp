@@ -45,14 +45,31 @@ int main()
     float ballDirection = 0;
     sf::Color cursorColor(0, 0, 255, 255);
     
+    // Game Objects
+
+    // Ball
     Ball ball(sf::Vector2f(200, 400), sf::Vector2f(50, 100), sf::Vector2f(10, 10), sf::Color(255, 0, 0));
     ball.setVelocity(ballSpeed);
-    bool paddleCollided = false;
-    bool brickCollided = false;
 
     // Cursor
     sf::RectangleShape paddle(sf::Vector2f(75, 20));
     paddle.setPosition(sf::Vector2f(0, 450));
+
+    // Test sprite
+    sf::Texture grassImage;
+    grassImage.loadFromFile("assets/grass.png");
+
+    sf::Sprite grassSprite;
+    grassSprite.setTexture(grassImage);
+    grassSprite.setPosition(300, 450);
+
+
+
+    // collision bools
+    bool paddleCollided = false;
+    bool brickCollided = false;
+
+
 
     // Bricks
     std::vector<Brick> bricks;
@@ -165,6 +182,8 @@ int main()
         window.draw(paddle);
 
         ball.draw(window);
+
+        window.draw(grassSprite);
 
         for (int i = 0; i < bricks.size(); i++)
         {

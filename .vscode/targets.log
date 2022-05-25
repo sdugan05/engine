@@ -7,7 +7,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
 
-# Make data base, printed on Tue May 24 09:52:30 2022
+# Make data base, printed on Wed May 25 09:38:32 2022
 
 # Variables
 
@@ -15,8 +15,6 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
-# environment
-ELECTRON_NO_ATTACH_CONSOLE = 1
 # environment
 VSCODE_LOG_NATIVE = false
 # automatic
@@ -48,9 +46,9 @@ VSCODE_VERBOSE_LOGGING = true
 # makefile (from `Makefile', line 2)
 IMGUI_DIR = ../..
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/8w/4c1x6p694_b7crr2r7gzbr840000gp/T/vscode-ipc-ac2f5e19-2ce4-4d73-9745-f108f30c319f.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/8w/4c1x6p694_b7crr2r7gzbr840000gp/T/vscode-ipc-8fdf92f1-85e6-4dd6-a548-1c64f7602220.sock
 # environment
-VSCODE_CWD = /Users/Saul/graphics/engine
+VSCODE_CWD = /
 # environment
 Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.gLD5u89Z28/Render
 # environment
@@ -88,8 +86,6 @@ HOME = /Users/Saul
 # default
 MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
 # environment
-VSCODE_CLI = 1
-# environment
 VSCODE_CODE_CACHE_PATH = /Users/Saul/Library/Application Support/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
 # environment
 LOGNAME = Saul
@@ -103,32 +99,24 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
 XPC_FLAGS = 0x0
-# environment
-COLORTERM = truecolor
 # default
 MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
 # environment
-LC_TERMINAL = iTerm2
-# environment
-SHLVL = 3
+SHLVL = 1
 # default
 MAKE_VERSION := 3.81
 # environment
 USER = Saul
 # makefile
 .DEFAULT_GOAL := all
-# default
-MAKECMDGOALS := all
-# environment
-TERM_SESSION_ID = w0t0p0:A9C95E71-17D8-4CE3-8AD8-9BE8516D379D
 # environment
 LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
-# environment
-TERM_PROGRAM = iTerm.app
 # default
 .VARIABLES := 
 # environment
@@ -137,6 +125,8 @@ TMPDIR = /var/folders/8w/4c1x6p694_b7crr2r7gzbr840000gp/T/
 *F = $(notdir $*)
 # environment
 VSCODE_IPC_HOOK = /Users/Saul/Library/Application Support/Code/1.67.2-main.sock
+# environment
+MallocNanoZone = 0
 # makefile
 MAKEFLAGS = Rrqp
 # environment
@@ -144,19 +134,11 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-TERM_PROGRAM_VERSION = 3.4.15
-# environment
-XPC_SERVICE_NAME = 0
-# environment
-LC_TERMINAL_VERSION = 3.4.15
+XPC_SERVICE_NAME = com.microsoft.VSCode.25016
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
-# environment
-ITERM_SESSION_ID = w0t0p0:A9C95E71-17D8-4CE3-8AD8-9BE8516D379D
-# environment
-COLORFGBG = 15;0
 # environment
 __CF_USER_TEXT_ENCODING = 0x1F6:0x0:0x0
 # default
@@ -164,13 +146,13 @@ MAKEFILES :=
 # automatic
 <F = $(notdir $<)
 # environment
-ITERM_PROFILE = Default
-# environment
 PAGER = less
 # environment
 LC_ALL = C
 # makefile (from `Makefile', line 20)
 LIBS =  -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -L/usr/local/lib -L/opt/local/lib -L/opt/homebrew/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+# environment
+SECURITYSESSIONID = 186a7
 # automatic
 ^F = $(notdir $^)
 # default
@@ -182,11 +164,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-TERM = xterm-256color
-# environment
-VSCODE_PID = 16973
+VSCODE_PID = 22924
 # variable set hash-table stats:
-# Load=87/1024=8%, Rehash=0, Collisions=11/143=8%
+# Load=77/1024=8%, Rehash=0, Collisions=8/133=6%
 
 # Pattern-specific Variable Values
 
@@ -269,7 +249,7 @@ Makefile:
 # Not a target:
 Engine.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-23 10:44:54
+#  Last modified 2022-05-24 19:39:09
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -283,7 +263,7 @@ imgui.o:
 
 engine_main: Engine.o imgui-SFML.o Gui.o Input.o Brick.o Ball.o imgui.o imgui_demo.o imgui_draw.o imgui_tables.o imgui_widgets.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-23 10:38:19
+#  Last modified 2022-05-24 10:08:59
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
@@ -292,7 +272,6 @@ engine_main: Engine.o imgui-SFML.o Gui.o Input.o Brick.o Ball.o imgui.o imgui_de
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS)
 	
 
- 
 # Not a target:
 Input.o:
 #  Implicit rule search has not been done.
@@ -313,6 +292,7 @@ imgui_widgets.o:
 
 # Not a target:
 imgui_draw.o:
+ 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -334,7 +314,7 @@ imgui_tables.o:
 Engine.o: Engine.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `Engine'
-#  Last modified 2022-05-23 10:38:19
+#  Last modified 2022-05-24 10:08:59
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # automatic
@@ -384,6 +364,6 @@ imgui-SFML.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Tue May 24 09:52:30 2022
+# Finished Make data base on Wed May 25 09:38:33 2022
 
  
