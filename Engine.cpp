@@ -14,11 +14,21 @@
 #include "Ball.h"
 
 void poputateBricks(std::vector<Brick>& bricks, int width, int height) {
+    int brickWidth = 40;
+    int brickHeight = 25;
+    int brickPadding = 20;
+
     for (int i = 0; i < width; i++)
     {
         for (int j = 0; j < height; j++)
         {
-            bricks.push_back(Brick(i * 50 + i * 10, j * 25 + j * 10, 50, 25));
+            bricks.push_back(
+                Brick(
+                i * brickWidth + i * brickPadding,
+                j * brickHeight + j * brickPadding,
+                brickWidth, brickHeight
+                )
+            );
         }
     }
 }
